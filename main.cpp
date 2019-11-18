@@ -12,9 +12,9 @@ class Node {
     int data;
     string value;
 
-    Node * left;
-    Node * right;
-    Node * parent;
+    Node* left;
+    Node* right;
+    Node* parent;
 
     public:
         // constructors
@@ -80,11 +80,23 @@ bool Node::operator<(Node &rhs) {
   return data < rhs.data;
 }
 
-bool compare_pairs_decreasing(pair<string, int>& a, pair<string, int>& b) {
+class Tree {
+    Node* root;
+
+    public:
+        // constructors
+        Tree(Node*);
+};
+
+Tree::Tree(Node* n) {
+    root = n;
+}
+
+bool compare_pairs_decreasing(pair<string, int> &a, pair<string, int> &b) {
     return a.second < b.second;
 }
 
-void show_ordered_pairs(map<string, int>& text_table) {
+void show_ordered_pairs(map<string, int> &text_table) {
     vector<pair<string, int>> elems(text_table.begin(), text_table.end());
     sort(elems.begin(), elems.end(), compare_pairs_decreasing);
     for (auto e: elems) {
@@ -92,7 +104,7 @@ void show_ordered_pairs(map<string, int>& text_table) {
     }
  }
 
-map<string, int> build_huffman_dict(ifstream& text) {
+map<string, int> build_huffman_dict(ifstream &text) {
     map<string, int> huffmap;
     char c;
 
