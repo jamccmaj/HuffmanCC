@@ -6,110 +6,28 @@
 #include <vector>
 #include <algorithm>
 
-using namespace std;
+#include "node.h"
+#include "tree.h"
 
-class Node {
-    int data;
-    string value;
 
-    Node* left;
-    Node* right;
-    Node* parent;
-
-    public:
-        // constructors
-        Node(string, int);
-        Node(string, int, Node, Node, Node);
-
-        // role in tree
-        bool is_leaf();
-        bool is_root();
-        bool is_internal();
-
-        // data access
-        int get_data();
-        string get_value();
-
-        // operators
-        bool operator<(Node &rhs);
-
-};
-
-// constructors
-Node::Node(string v, int d) {
-    value = v;
-    data = d;
-    left = NULL;
-    right = NULL;
-    parent = NULL;
-}
-
-Node::Node(string v, int d, Node l, Node r, Node p) {
-    value = v;
-    data = d;
-    left = &l;
-    right = &r;
-    parent = &p;
-}
-
-// role accessors
-bool Node::is_leaf() {
-  return !left && !right;
-}
-
-bool Node::is_root() {
-  return !parent;
-}
-
-bool Node::is_internal() {
-    return !is_leaf() && !is_root();
-}
-
-// data accessors
-int Node::get_data() {
-    return data;
-}
-
-string Node::get_value() {
-    return value;
-}
-
-// operators
-
-bool Node::operator<(Node &rhs) {
-  return data < rhs.data;
-}
-
-class Tree {
-    Node* root;
-
-    public:
-        // constructors
-        Tree(Node*);
-};
-
-Tree::Tree(Node* n) {
-    root = n;
-}
-
-bool compare_pairs_decreasing(pair<string, int> &a, pair<string, int> &b) {
+bool compare_pairs_decreasing(std::pair<std::string, int> &a, std::pair<std::string, int> &b) {
     return a.second < b.second;
 }
 
-void show_ordered_pairs(map<string, int> &text_table) {
-    vector<pair<string, int>> elems(text_table.begin(), text_table.end());
+void show_ordered_pairs(std::map<std::string, int> &text_table) {
+    std::vector<std::pair<std::string, int>> elems(text_table.begin(), text_table.end());
     sort(elems.begin(), elems.end(), compare_pairs_decreasing);
     for (auto e: elems) {
-        cout << e.first << " " << e.second << "\n";
+        std::cout << e.first << " " << e.second << "\n";
     }
  }
 
-map<string, int> build_huffman_dict(ifstream &text) {
-    map<string, int> huffmap;
+std::map<std::string, int> build_huffman_dict(std::ifstream &text) {
+    std::map<std::string, int> huffmap;
     char c;
 
     while (text.get(c)) {
-        string temp(1, c);
+        std::string temp(1, c);
         auto key = huffmap.find(temp);
 
         if (key != huffmap.end()) {
@@ -124,37 +42,37 @@ map<string, int> build_huffman_dict(ifstream &text) {
 
 int main(int argc, char** argv) {
 
-    ifstream input_file (argv[1]);
+    std::ifstream input_file (argv[1]);
 
     if (input_file.is_open()) {
         auto huffmap = build_huffman_dict(input_file);
         show_ordered_pairs(huffmap);
     } else {
-        cout << "Cannot open file: " << argv[1] << "\n";
+        std::cout << "Cannot open file: " << argv[1] << "\n";
     }
 
-    cout << "\nTesting node class: \n";
+    std::cout << "\nTesting node class: \n";
 
-    string s_0 = "A";
+    std::string s_0 = "A";
     int count_0 = 10;
     Node n = Node(s_0, count_0);
 
-    cout << "Value: " << n.get_value() << endl;
-    cout << "Count: " << n.get_data() << endl;
-    cout << "Is leaf? " << n.is_leaf() << endl;
-    cout << "Is root? " << n.is_root() << endl;
-    cout << "Is internal? " << n.is_internal() << endl;
+    std::cout << "Value: " << n.get_value() << std::endl;
+    std::cout << "Count: " << n.get_data() << std::endl;
+    std::cout << "Is leaf? " << n.is_leaf() << std::endl;
+    std::cout << "Is root? " << n.is_root() << std::endl;
+    std::cout << "Is internal? " << n.is_internal() << std::endl;
 
-    string s_1 = "B";
+    std::string s_1 = "B";
     int count_1 = 15;
     Node* np = new Node(s_1, count_1);
-    cout << "Value: " << np->get_value() << endl;
-    cout << "Count: " << np->get_data() << endl;
-    cout << "Is leaf? " << np->is_leaf() << endl;
-    cout << "Is root? " << np->is_root() << endl;
-    cout << "Is internal? " << np->is_internal() << endl;
+    std::cout << "Value: " << np->get_value() << std::endl;
+    std::cout << "Count: " << np->get_data() << std::endl;
+    std::cout << "Is leaf? " << np->is_leaf() << std::endl;
+    std::cout << "Is root? " << np->is_root() << std::endl;
+    std::cout << "Is internal? " << np->is_internal() << std::endl;
 
-    cout << (n < *np) << endl;
+    std::cout << (n < *np) << std::endl;
     
     return 0;
 }
