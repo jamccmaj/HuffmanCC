@@ -30,6 +30,9 @@ class Node {
         int get_data();
         string get_value();
 
+        // operators
+        bool operator<(Node &rhs);
+
 };
 
 // constructors
@@ -69,6 +72,12 @@ int Node::get_data() {
 
 string Node::get_value() {
     return value;
+}
+
+// operators
+
+bool Node::operator<(Node &rhs) {
+  return data < rhs.data;
 }
 
 bool compare_pairs_decreasing(pair<string, int>& a, pair<string, int>& b) {
@@ -114,9 +123,9 @@ int main(int argc, char** argv) {
 
     cout << "\nTesting node class: \n";
 
-    string s = "A";
-    int count = 10;
-    Node n = Node(s, count);
+    string s_0 = "A";
+    int count_0 = 10;
+    Node n = Node(s_0, count_0);
 
     cout << "Value: " << n.get_value() << endl;
     cout << "Count: " << n.get_data() << endl;
@@ -124,6 +133,16 @@ int main(int argc, char** argv) {
     cout << "Is root? " << n.is_root() << endl;
     cout << "Is internal? " << n.is_internal() << endl;
 
+    string s_1 = "B";
+    int count_1 = 15;
+    Node* np = new Node(s_1, count_1);
+    cout << "Value: " << np->get_value() << endl;
+    cout << "Count: " << np->get_data() << endl;
+    cout << "Is leaf? " << np->is_leaf() << endl;
+    cout << "Is root? " << np->is_root() << endl;
+    cout << "Is internal? " << np->is_internal() << endl;
+
+    cout << (n < *np) << endl;
     
     return 0;
 }
