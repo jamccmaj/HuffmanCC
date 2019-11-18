@@ -8,8 +8,35 @@
 
 using namespace std;
 
-bool compare_pairs_decreasing(std::pair<std::string, int>& a, std::pair<std::string, int>& b) {
-  return a.second < b.second;
+class Node {
+    int data;
+    string value;
+
+    Node * left;
+    Node * right;
+
+    public:
+        Node(string, int);
+        Node(string, int, Node, Node);
+
+};
+
+Node::Node(string v, int d) {
+    value = v;
+    data = d;
+    left = NULL;
+    right = NULL;
+}
+
+Node::Node(string v, int d, Node l, Node r) {
+    value = v;
+    data = d;
+    left = &l;
+    right = &r;
+}
+
+bool compare_pairs_decreasing(pair<string, int>& a, pair<string, int>& b) {
+    return a.second < b.second;
 }
 
 void show_ordered_pairs(map<string, int>& text_table) {
@@ -37,7 +64,6 @@ map<string, int> build_huffman_dict(ifstream& text) {
 
     return huffmap;
 }
-
 
 int main(int argc, char** argv) {
 
