@@ -1,17 +1,17 @@
 #include "node.h"
 
 // constructors
-Node::Node(std::string v, int d) {
+Node::Node(std::string v, int c) {
     value = v;
-    data = d;
+    count = c;
     left = NULL;
     right = NULL;
     parent = NULL;
 }
 
-Node::Node(std::string v, int d, Node l, Node r, Node p) {
+Node::Node(std::string v, int c, Node l, Node r, Node p) {
     value = v;
-    data = d;
+    count = c;
     left = &l;
     right = &r;
     parent = &p;
@@ -31,8 +31,8 @@ bool Node::is_internal() {
 }
 
 // data accessors
-int Node::get_data() {
-    return data;
+int Node::get_count() {
+    return count;
 }
 
 std::string Node::get_value() {
@@ -42,5 +42,5 @@ std::string Node::get_value() {
 // operators
 
 bool Node::operator<(Node &rhs) {
-  return data < rhs.data;
+  return count < rhs.count;
 }

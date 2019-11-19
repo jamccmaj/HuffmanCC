@@ -10,16 +10,28 @@
 #include "tree.h"
 
 
-bool compare_pairs_decreasing(std::pair<std::string, int> &a, std::pair<std::string, int> &b) {
+bool compare_pairs_decreasing(
+  std::pair<std::string, int> &a,
+  std::pair<std::string, int> &b
+) {
     return a.second < b.second;
 }
 
-void show_ordered_pairs(std::map<std::string, int> &text_table) {
-    std::vector<std::pair<std::string, int>> elems(text_table.begin(), text_table.end());
+std::vector<Node*> initialize_node_queue(
+    std::map<std::string, int> &char_count_dict
+) {
+    std::vector<std::pair<std::string, int>> elems(
+      char_count_dict.begin(), char_count_dict.end()
+    );
     sort(elems.begin(), elems.end(), compare_pairs_decreasing);
+
+    std::vector<Node*> node_queue;
     for (auto e: elems) {
-        std::cout << e.first << " " << e.second << "\n";
+        Node* n = new Node(e.first, e.second);
+        node_queue.push_back(n);
     }
+
+    return node_queue;
  }
 
 std::map<std::string, int> build_huffman_dict(std::ifstream &text) {
@@ -40,39 +52,29 @@ std::map<std::string, int> build_huffman_dict(std::ifstream &text) {
     return huffmap;
 }
 
+    
+
 int main(int argc, char** argv) {
 
     std::ifstream input_file (argv[1]);
 
-    if (input_file.is_open()) {
-        auto huffmap = build_huffman_dict(input_file);
-        show_ordered_pairs(huffmap);
-    } else {
+    if (input_file.is_open()) {} else {
         std::cout << "Cannot open file: " << argv[1] << "\n";
+        return 1;
     }
 
-    std::cout << "\nTesting node class: \n";
+    auto huffmap = build_huffman_dict(input_file);
+    auto nq = initialize_node_queue(huffmap);
 
-    std::string s_0 = "A";
-    int count_0 = 10;
-    Node n = Node(s_0, count_0);
+    int counter = 0;
+    for (auto n: nq) {
+        std::cout << n->get_value() << " ";
+        std::cout << n->get_count() << "\n";
+        counter += n->get_count();
+    }
 
-    std::cout << "Value: " << n.get_value() << std::endl;
-    std::cout << "Count: " << n.get_data() << std::endl;
-    std::cout << "Is leaf? " << n.is_leaf() << std::endl;
-    std::cout << "Is root? " << n.is_root() << std::endl;
-    std::cout << "Is internal? " << n.is_internal() << std::endl;
-
-    std::string s_1 = "B";
-    int count_1 = 15;
-    Node* np = new Node(s_1, count_1);
-    std::cout << "Value: " << np->get_value() << std::endl;
-    std::cout << "Count: " << np->get_data() << std::endl;
-    std::cout << "Is leaf? " << np->is_leaf() << std::endl;
-    std::cout << "Is root? " << np->is_root() << std::endl;
-    std::cout << "Is internal? " << np->is_internal() << std::endl;
-
-    std::cout << (n < *np) << std::endl;
+    input_file.close();
+    printf("Total chars = %d\n", counter);
     
     return 0;
 }

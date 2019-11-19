@@ -4,7 +4,7 @@
 #include <string>
 
 class Node {
-    int data;
+    int count;
     std::string value;
 
     Node* left;
@@ -22,7 +22,7 @@ class Node {
         bool is_internal();
 
         // data access
-        int get_data();
+        int get_count();
         std::string get_value();
 
         // operators
