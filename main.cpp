@@ -52,7 +52,24 @@ std::map<std::string, int> build_huffman_dict(std::ifstream &text) {
     return huffmap;
 }
 
-    
+
+Tree build_tree(std::vector<Node*>& leaf_q) {
+    while (leaf_q.size() > 1) {
+        Node* n1 = new Node(leaf_q.at(0), leaf_q.at(1));
+        leaf_q.erase(leaf_q.begin(), leaf_q.begin() + 2);
+
+        size_t i;
+        for (i = 0; i < leaf_q.size(); i++ ) {
+            if (n1->get_count() < leaf_q.at(i)->get_count()) {
+                break;
+            }
+        }
+        leaf_q.insert(leaf_q.begin() + i, n1);
+    }
+
+    return Tree(leaf_q.at(0));
+}
+
 
 int main(int argc, char** argv) {
 
@@ -64,16 +81,19 @@ int main(int argc, char** argv) {
     }
 
     auto huffmap = build_huffman_dict(input_file);
+    // file no longer needed
+    input_file.close();
+
     auto nq = initialize_node_queue(huffmap);
+    auto tree = build_tree(nq);
+
+    tree.get_root_node()->print_nodes_with_order(2);
 
     int counter = 0;
     for (auto n: nq) {
-        std::cout << n->get_value() << " ";
-        std::cout << n->get_count() << "\n";
         counter += n->get_count();
     }
 
-    input_file.close();
     printf("Total chars = %d\n", counter);
     
     return 0;
