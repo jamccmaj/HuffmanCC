@@ -1,3 +1,4 @@
+#include <iostream>
 #include "node.h"
 
 // constructors
@@ -15,6 +16,15 @@ Node::Node(std::string v, int c, Node l, Node r, Node p) {
     left = &l;
     right = &r;
     parent = &p;
+}
+
+Node::Node(Node* l, Node* r) {
+  value = l->value + "_" + r->value;
+  count = l->count + r->count;
+  left = l;
+  right = r;
+  left->parent = this;
+  right->parent = this;
 }
 
 // role accessors

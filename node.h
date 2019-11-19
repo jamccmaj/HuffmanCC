@@ -16,6 +16,8 @@ class Node {
         Node(std::string, int);
         Node(std::string, int, Node, Node, Node);
 
+        Node(Node*, Node*);
+
         // role in tree
         bool is_leaf();
         bool is_root();
