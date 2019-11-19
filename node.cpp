@@ -52,5 +52,36 @@ std::string Node::get_value() {
 // operators
 
 bool Node::operator<(Node &rhs) {
-  return count < rhs.count;
+ 	return count < rhs.count;
+}
+
+std::ostream& operator<<(std::ostream &os, Node &rhs) {
+	os << rhs.get_value() << " ";
+	os << rhs.get_value().length() << " ";
+	os << rhs.get_count() << "\n";
+	return os;
+}
+
+void Node::print_nodes_with_order(int order) {
+	// preorder = 0, inorder = 1, postorder = 2
+	// otherwise it won't print :P
+	if (order == 0) {
+		std::cout << *this;
+	}
+
+	if (left != NULL) {
+		left->print_nodes_with_order(order);
+	}
+
+	if (order == 1) {
+		std::cout << *this;
+	}
+
+	if (right != NULL) {
+		right->print_nodes_with_order(order);
+	}
+
+	if (order == 2) {
+		std::cout << *this;
+	}
 }

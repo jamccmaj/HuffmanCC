@@ -14,3 +14,4 @@
 .python-version
 *.sublime-*
 *.o
+data/
