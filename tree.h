@@ -9,6 +9,7 @@ class Tree {
     public:
         // constructors
         Tree(Node*);
+        Node* get_root_node();
 };
 
 #endif
