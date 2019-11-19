@@ -52,7 +52,6 @@ std::map<std::string, int> build_huffman_dict(std::ifstream &text) {
     return huffmap;
 }
 
-
 Tree build_tree(std::vector<Node*>& leaf_q) {
     while (leaf_q.size() > 1) {
         Node* n1 = new Node(leaf_q.at(0), leaf_q.at(1));
