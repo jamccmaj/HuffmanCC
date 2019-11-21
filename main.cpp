@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
     auto nq = initialize_node_queue(huffmap);
     auto tree = build_tree(nq);
 
-    tree.get_root_node()->print_nodes_with_order(2);
+    tree.get_root_node()->print_nodes_with_order(0);
 
     int counter = 0;
     for (auto n: nq) {

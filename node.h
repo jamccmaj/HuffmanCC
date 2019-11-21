@@ -29,7 +29,6 @@ class Node {
 
         // operators
         bool operator<(Node &rhs);
-        // std::ostream &operator<<(std::ostream &os, Node &rhs);
 
         void print_nodes_with_order(int order);
 

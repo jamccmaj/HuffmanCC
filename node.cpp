@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "node.h"
 
 // constructors
@@ -55,7 +56,7 @@ bool Node::operator<(Node &rhs) {
  	return count < rhs.count;
 }
 
-std::ostream& operator<<(std::ostream &os, Node &rhs) {
+std::ostream& operator<<(std::ostream& os, Node& rhs) {
 	os << rhs.get_value() << " ";
 	os << rhs.get_value().length() << " ";
 	os << rhs.get_count() << "\n";
